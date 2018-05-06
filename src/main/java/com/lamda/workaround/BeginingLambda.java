@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 interface  Condition {
      boolean test(Person person);
 }
-public class PersonService {
+public class BeginingLambda {
 
     public static void main(String[] args) {
 
@@ -44,7 +44,10 @@ public class PersonService {
 
         System.out.println("########## After Using Condition ##########");
         Condition condition = (p) -> p.getFirstName().startsWith("D");
-        getConditionalList(personList, condition);
+        printConditionalList(personList, condition);
+
+
+        printConditionalList(personList, (p) -> true ); // this will print all
 
     }
 
@@ -54,8 +57,13 @@ public class PersonService {
         }
     }
 
-    static void getConditionalList (List<Person> personList, Condition condition){
-         printAll(personList.stream().filter(p -> condition.test(p)).collect(Collectors.toList()));
+    static void printConditionalList (List<Person> personList, Condition condition){
+
+         for (Person p : personList){
+             if(condition.test(p)){
+                 System.out.println(String.format("FirstName : %s, LastName : %s, ID Number : %d",p.getFirstName(), p.getLastName(), p.getIdNumber()));
+             }
+         }
 
     }
 
